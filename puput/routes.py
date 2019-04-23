@@ -30,21 +30,21 @@ class BlogRoutes(RoutablePageMixin):
             self.search_term = date_format(date(int(year), int(month), int(day)))
         return Page.serve(self, request, *args, **kwargs)
 
-    @route(r'^tag/(?P<tag>[-\w]+)/$')
+    @route(r'^tags/(?P<tag>[-\w]+)/$')
     def entries_by_tag(self, request, tag, *args, **kwargs):
         self.search_type = _('tag')
         self.search_term = tag
         self.entries = self.get_entries().filter(tags__slug=tag)
         return Page.serve(self, request, *args, **kwargs)
 
-    @route(r'^category/(?P<category>[-\w]+)/$')
+    @route(r'^categories/(?P<category>[-\w]+)/$')
     def entries_by_category(self, request, category, *args, **kwargs):
         self.search_type = _('category')
         self.search_term = category
         self.entries = self.get_entries().filter(entry_categories__category__slug=category)
         return Page.serve(self, request, *args, **kwargs)
 
-    @route(r'^author/(?P<author>%s)/$' % USERNAME_REGEX)
+    @route(r'^authors/(?P<author>%s)/$' % USERNAME_REGEX)
     def entries_by_author(self, request, author, *args, **kwargs):
         self.search_type = _('author')
         self.search_term = author
